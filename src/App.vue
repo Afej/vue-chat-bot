@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="chat-container">
+      <div class="head" @click="displayChatArea=!displayChatArea">
+        <div style="justify-self: center;">Click to Chat!</div>
+      </div>
+      <div v-if="displayChatArea">
+        <messages />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Messages from "@/components/Messages.vue";
+import "./App.css";
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    HelloWorld
-  }
-}
+    Messages
+  },
+  data: function() {
+    return {
+      displayChatArea: false
+    };
+  },
+  methods: {}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
