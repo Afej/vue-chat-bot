@@ -1,15 +1,14 @@
 <template>
   <div class="chat-box">
     <div class="client-messages">
-      <div
-        class="chat-message"
-        v-for="(message,index) in chats"
-        v-bind:key="index"
-        :class="message.author"
-      >
-        <div class="message">
-          <img :src="message.imgsrc" class="avatar" alt="Active user avatar" />
-          <span>{{ message.text }}</span>
+      <div class="chat-message" v-for="(message,index) in chats" v-bind:key="index">
+        <div class="active-user message message-to">
+          <span>{{ message.query }}</span>
+          <img src="../images/user.png" class="avatar" alt="avatar" />
+        </div>
+        <div class="bot message message-from">
+          <img src="../images/bot.png" class="avatar" alt="avatar" />
+          <span>{{ message.speech }}</span>
         </div>
       </div>
     </div>
@@ -26,7 +25,6 @@
 </template>
 
 <script>
-// import axios from "axios";
 import WebhookService from "../WebhookService";
 
 export default {
@@ -42,25 +40,19 @@ export default {
       this.message = "";
 
       this.chats.push({
-        text: message,
-        author: "client",
-        imgsrc: "../images/user.png"
+        query: message
       });
 
       try {
         let response = await WebhookService.sendChat(message);
 
         this.chats.push({
-          text: response,
-          author: "server",
-          imgsrc: "../images/bot.png"
+          speech: response
         });
       } catch (error) {
         console.log(error);
         this.chats.push({
-          text: "Error no response",
-          author: "server",
-          imgsrc: "../images/bot.png"
+          speech: "Error no response"
         });
       }
     }
@@ -75,26 +67,29 @@ export default {
 }
 
 .message {
+  display: flex;
+  justify-content: space-between;
   border-radius: 50px;
   padding: 5px 10px;
+  margin-bottom: 10px;
   position: relative;
   font-weight: bold;
   width: inherit;
 }
 
-span {
-  position: absolute;
+.message span {
+  position: relative;
   top: 5px;
-  padding: 8px;
-  color: white;
-  border-radius: 4px;
 }
-
-.client span {
-  background: #0070c8;
+.message-to {
+  background-color: #2095fe;
+  color: #fff;
+  margin-left: 100px;
+  text-align: right;
 }
-
-.server span {
+.message-from {
   background: #99cc00;
+  color: #363636;
+  margin-right: 100px;
 }
 </style>

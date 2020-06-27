@@ -11,12 +11,7 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-.login-container {
-  display: grid;
-  grid-template-rows: 4fr 1fr;
-  max-height: 320px;
-  min-height: 320px;
-}
+
 input[type='text'] {
   padding: 10px 8px;
   margin-top: 10px;
@@ -39,10 +34,10 @@ input[type='text'] {
   font-size: 16px;
 }
 .chat-message {
-  width: 70%;
+  width: inherit;
   margin-top: 4px;
   padding: 4px;
-  text-align: left;
+  /* text-align: left; */
   word-wrap: break-word;
   margin: 5px;
 }
